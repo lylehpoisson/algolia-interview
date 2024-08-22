@@ -1,0 +1,4 @@
+**/__pycache__/
+airflow-logs/
+logs/
+logs/scheduler/latest
