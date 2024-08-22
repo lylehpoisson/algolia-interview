@@ -1,8 +1,13 @@
 import pytest
-from unittest.mock import patch, MagicMock
-from airflow.models import TaskInstance
-from airflow.utils.state import State
 import re
+
+from airflow.models import TaskInstance, DagRun
+from airflow.utils.state import State
+from airflow.utils.types import DagRunType
+from airflow.utils import timezone
+from airflow.utils.session import create_session
+from unittest.mock import patch, MagicMock
+
 
 # Import your DAG
 from dags.algolia_etl import algolia_etl
@@ -11,6 +16,32 @@ from dags.algolia_etl import algolia_etl
 @pytest.fixture(scope="module")
 def dag():
     return algolia_etl()
+
+
+def create_dagrun(dag):
+    execution_date = timezone.datetime(2019, 4, 1, tzinfo=dag.timezone)
+    with create_session() as session:
+        existing_dagrun = session.query(DagRun).filter(
+            DagRun.dag_id == dag.dag_id,
+            DagRun.execution_date == execution_date
+        ).first()
+
+        if existing_dagrun:
+            return existing_dagrun
+
+        dagrun = DagRun(
+            dag_id=dag.dag_id,
+            execution_date=execution_date,
+            start_date=timezone.utcnow(),
+            state=State.RUNNING,
+            run_id=DagRun.generate_run_id(DagRunType.MANUAL, execution_date),
+            run_type=DagRunType.MANUAL,
+            conf=None,
+            external_trigger=False
+        )
+        session.add(dagrun)
+        session.commit()
+        return dagrun
 
 
 def normalize_sql(sql):
@@ -28,7 +59,8 @@ def test_create_table(mock_render_template_fields, mock_execute, dag):
     mock_execute.__name__ = 'execute'
 
     create_table = dag.get_task('create_table')
-    ti = TaskInstance(task=create_table, execution_date=dag.start_date)
+    dagrun = create_dagrun(dag)
+    ti = TaskInstance(task=create_table, run_id=dagrun.run_id)
     ti.set_state(State.NONE)
     ti.run(ignore_ti_state=True)
 
