@@ -1,6 +1,6 @@
 -- create shopify data table
-create table if not exists shopify_data (
-    id varchar(256) PRIMARY KEY
+create table if not exists client_ingests.shopify_data (
+    id varchar(256) PRIMARY KEY  not null
     , shop_domain varchar(256)
     , application_id varchar(256)
     , autocomplete_enabled boolean

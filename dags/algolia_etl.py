@@ -1,10 +1,11 @@
 import os
+
 import pendulum
 from airflow.decorators import dag, task
-from airflow.providers.common.sql.operators.sql import SQLExecuteQueryOperator
-from airflow.providers.postgres.hooks.postgres import PostgresHook
 from airflow.exceptions import AirflowSkipException
 from airflow.models import Variable
+from airflow.providers.common.sql.operators.sql import SQLExecuteQueryOperator
+from airflow.providers.postgres.hooks.postgres import PostgresHook
 
 
 start_date = pendulum.datetime(2019, 4, 1, tz='UTC')
@@ -98,7 +99,7 @@ def algolia_etl():
         df = pd.read_csv(filtered_csv_path)
         df_records = df.to_dict(orient='records')
         underscore_date = full_date.replace('-', '_')
-        create_temp_table_sql = f'CREATE TEMP TABLE temp_shopify_table_{underscore_date} (LIKE shopify_data);'  # nopep8
+        create_temp_table_sql = f'CREATE TEMP TABLE temp_shopify_table_{underscore_date} (LIKE client_ingests.shopify_data);'  # nopep8
         insert_to_temp_tbl_sql = ' '.join(f"""
                 INSERT INTO temp_shopify_table_{underscore_date} ({', '.join(df.columns)})
                 VALUES ({', '.join(['%s'] * len(df.columns))})
