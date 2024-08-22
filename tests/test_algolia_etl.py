@@ -151,7 +151,7 @@ def test_load(mock_variable_get, mock_open, mock_get_conn, mock_read_csv, dag):
 
     # Prepare expected SQL strings and normalize them
     expected_create_temp_sql = normalize_sql(
-        "CREATE TEMP TABLE temp_shopify_table_2019_04_01 (LIKE shopify_data);")
+        "CREATE TEMP TABLE temp_shopify_table_2019_04_01 (LIKE client_ingests.shopify_data);")
     expected_insert_to_temp_tbl_sql = normalize_sql(
         "INSERT INTO temp_shopify_table_2019_04_01 (column1, column2) VALUES (%s, %s)")
     expected_insert_data_sql = normalize_sql(

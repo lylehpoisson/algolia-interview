@@ -1,8 +1,10 @@
+-- create client_ingests schema
+create schema if not exists client_ingests;
 -- create shopify data table
 create table if not exists client_ingests.shopify_data (
     id varchar(256) PRIMARY KEY  not null
     , shop_domain varchar(256)
-    , application_id varchar(256)
+    , application_id varchar(256) not null
     , autocomplete_enabled boolean
     , user_created_at_least_one_qr boolean
     , nbr_merchandised_queries integer
