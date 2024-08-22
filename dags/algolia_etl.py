@@ -79,7 +79,7 @@ def algolia_etl():
         except ClientError as e:
             if e.response['Error']['Code'] == '404':
                 # File not found, log a message and skip downstream tasks
-                print(f"File for day {full_date} not found, skipping downstream tasks.")  # nopep8
+                print(f"File for day {full_date} not found, skipping downstream tasks.")
                 raise AirflowSkipException(
                     f"File for day {full_date} not found.")
             else:

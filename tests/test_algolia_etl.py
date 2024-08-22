@@ -166,9 +166,15 @@ def test_load(mock_variable_get, mock_open, mock_get_conn, mock_read_csv, dag):
         mock_cursor.execute.call_args_list[1][0][0])
 
     # Ensure the correct SQL commands were executed
-    assert actual_create_temp_sql == expected_create_temp_sql, f"Expected {expected_create_temp_sql}, but got {actual_create_temp_sql}"  # nopep8
-    assert actual_insert_to_temp_tbl_sql == expected_insert_to_temp_tbl_sql, f"Expected {expected_insert_to_temp_tbl_sql}, but got {actual_insert_to_temp_tbl_sql}"  # nopep8
-    assert actual_insert_data_sql == expected_insert_data_sql, f"Expected {expected_insert_data_sql}, but got {actual_insert_data_sql}"  # nopep8
+    assert actual_create_temp_sql == expected_create_temp_sql, f"""
+                                Expected {expected_create_temp_sql}, but got {actual_create_temp_sql}
+                                """
+    assert actual_insert_to_temp_tbl_sql == expected_insert_to_temp_tbl_sql, f"""
+                                Expected {expected_insert_to_temp_tbl_sql}, but got {actual_insert_to_temp_tbl_sql}
+                                """
+    assert actual_insert_data_sql == expected_insert_data_sql, f"""
+                                Expected {expected_insert_data_sql}, but got {actual_insert_data_sql}
+"""
 
     # Ensure that executemany is called with the correct data
     mock_cursor.executemany.assert_called_once_with(
