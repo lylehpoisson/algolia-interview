@@ -17,7 +17,7 @@ This project implements a data pipeline designed for the Algolia Integration tea
    cd algolia-interview
    ```
 
-2. **Build the Docker images**:
+2. **Build the Docker images (make sure Docker Desktop is running first)**:
     ```bash
     docker-compose build
     ```
