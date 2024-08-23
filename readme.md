@@ -81,3 +81,11 @@ This process is important for ensuring that the DAG processes the intended histo
 ## Maintenance and Logging
 
 Logs are stored in the `airflow-logs` directory, organized by DAG ID and run ID, providing detailed information for debugging and verification purposes.
+
+## Troubleshooting
+
+If any issues are encountered with the DAG or database connection not showing up on the Airflow UI, please run 
+```bash
+docker-compose up -d
+```
+again, which will take care of this issue. Please feel free to send any questions or comments to lyle.h.poisson@gmail.com.
