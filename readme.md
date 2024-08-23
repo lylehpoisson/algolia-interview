@@ -6,8 +6,8 @@ This project implements a data pipeline designed for the Algolia Integration tea
 
 ## Prerequisites
 
-- Docker
-- Docker Compose
+- Docker (recommended to configure with 4+ GB of memory, ideally 8 GB)
+- Docker Compose v2.14.0+
 
 ## Installation
 
