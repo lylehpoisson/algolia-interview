@@ -119,8 +119,29 @@ def test_load(mock_variable_get, mock_open, mock_get_conn, mock_read_csv, dag):
 
     # Mock the DataFrame returned by read_csv
     mock_df = MagicMock()
-    mock_df.columns = ['column1', 'column2']
-    mock_df.to_dict.return_value = [{'column1': 'value1', 'column2': 'value2'}]
+    mock_df.columns = ['id','shop_domain','application_id','autocomplete_enabled',
+                       'user_created_at_least_one_qr','nbr_merchandised_queries',
+                       'nbrs_pinned_items','showing_logo','has_changed_sort_orders',
+                       'analytics_enabled','use_metafields','nbr_metafields','use_default_colors',
+                       'show_products','instant_search_enabled','instant_search_enabled_on_collection',
+                       'only_using_faceting_on_collection','use_merchandising_for_collection',
+                       'index_prefix','indexing_paused','install_channel','export_date']
+    mock_df.to_dict.return_value = [{'id': '811451e6-c164-430c-b083-70842fc09005',
+                                     'shop_domain': 'house-business-growth.myshopify.com',
+                                     'application_id': 'HQRLIXFEYY',
+                                     'autocomplete_enabled': True,
+                                     'user_created_at_least_one_qr': False,
+                                     'nbr_merchandised_queries': 0,'nbrs_pinned_items': '{0}',
+                                     'showing_logo': True,'has_changed_sort_orders': False,
+                                     'analytics_enabled': False,'use_metafields': False,
+                                     'nbr_metafields': 17,'use_default_colors': True,
+                                     'show_products': False,'instant_search_enabled': False,
+                                     'instant_search_enabled_on_collection': False,
+                                     'only_using_faceting_on_collection': False,
+                                     'use_merchandising_for_collection': False,
+                                     'index_prefix': 'shopify_within_free_ground_',
+                                     'indexing_paused': False,'install_channel': 'marketplace',
+                                     'export_date': '2019-04-01','has_specific_prefix': False}]
     mock_read_csv.return_value = mock_df
 
     # Mock the SQL file content

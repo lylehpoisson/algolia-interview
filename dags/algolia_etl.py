@@ -119,7 +119,7 @@ def algolia_etl():
         df['nbr_metafields'] = df['nbr_metafields'].astype('Int64')
         # We need to change [] to {} for the list column to make it Postgres compatible
         df['nbrs_pinned_items'] = df['nbrs_pinned_items'].apply(
-            lambda x: '{' + x.strip('[]') + '}')
+            lambda x: '{' + x.strip('[]') + '}' if not (x.startswith('{') and x.endswith('}')) else x)
 
         df.dropna(subset=['application_id'], inplace=True)
         df['has_specific_prefix'] = df['index_prefix'] == 'shopify_'

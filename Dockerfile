@@ -7,14 +7,14 @@ ENV DEBIAN_FRONTEND=noninteractive \
     AIRFLOW_GPL_UNIDECODE=yes
 
 RUN apt-get -y update \
- && apt-get -y install python3-pip libpq-dev postgresql-client python3-dev python3-distutils python3-apt unzip wget
+ && apt-get -y install python3-pip libpq-dev postgresql-client python3-dev python3-distutils python3-apt wget
 
 ENV GOSU_VERSION=1.17
 RUN set -eux; \
 # save list of currently installed packages for later so we can clean up
     savedAptMark="$(apt-mark showmanual)"; \
     apt-get update; \
-    apt-get install -y --no-install-recommends ca-certificates gnupg wget; \
+    apt-get install -y --no-install-recommends ca-certificates gnupg; \
     rm -rf /var/lib/apt/lists/*; \
     \
     dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')"; \
