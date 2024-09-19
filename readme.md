@@ -88,4 +88,4 @@ If any issues are encountered with the DAG or database connection not showing up
 ```bash
 docker-compose up -d
 ```
-again, which will take care of this issue. Please feel free to send any questions or comments to lyle.h.poisson@gmail.com.
+again, which will take care of this issue.
